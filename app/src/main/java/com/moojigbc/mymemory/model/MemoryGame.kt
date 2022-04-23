@@ -5,6 +5,7 @@ import com.moojigbc.mymemory.utils.DEFAULT_ICONS
 class MemoryGame(private val boardSize: BoardSize) {
     val cards: List<MemoryCard>
     var pairsFoundCount = 0
+    var movesCount = 0
 
     private var indexOfSingleFlippedCard: Int? = null
 
@@ -20,7 +21,11 @@ class MemoryGame(private val boardSize: BoardSize) {
         return cards.filter { it.isFaceUp }.size
     }
 
-    fun flipCard(position: Int) {
+    fun isCardFaceUp(position: Int): Boolean {
+        return cards[position].isFaceUp
+    }
+
+    fun flipCard(position: Int): Boolean {
         val card = cards[position]
         val otherCard = if (indexOfSingleFlippedCard != null) cards[indexOfSingleFlippedCard!!] else null
 
@@ -37,6 +42,8 @@ class MemoryGame(private val boardSize: BoardSize) {
         }
 
         card.isFaceUp = !card.isFaceUp
+        movesCount ++
+        return card.isMatched
     }
 
     private fun restoreCards() {
@@ -45,5 +52,23 @@ class MemoryGame(private val boardSize: BoardSize) {
                 card.isFaceUp = false
             }
         }
+    }
+
+    fun restart() {
+       for (card in cards) {
+           card.isMatched = false
+           card.isFaceUp = false
+           movesCount = 0
+           pairsFoundCount = 0
+       }
+    }
+
+    fun isGameWon(): Boolean {
+        return this.pairsFoundCount == this.boardSize.getPairCount()
+    }
+
+    fun getMoveCount(): Int {
+        // kotlin automatically converts float to int
+        return movesCount / 2
     }
 }

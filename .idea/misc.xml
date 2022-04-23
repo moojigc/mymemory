@@ -5,8 +5,12 @@
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.5846153846153846" />
         <entry key="app/src/main/res/drawable/ic_outline_umbrella_24.xml" value="0.3535" />
+        <entry key="app/src/main/res/layout/activity_game_creation.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.44565217391304346" />
+        <entry key="app/src/main/res/layout/card_image.xml" value="0.24358974358974358" />
+        <entry key="app/src/main/res/layout/dialog_board_size.xml" value="0.4370471014492754" />
         <entry key="app/src/main/res/layout/memory_card.xml" value="0.17202970297029702" />
+        <entry key="app/src/main/res/menu/menu_main.xml" value="0.4114583333333333" />
       </map>
     </option>
   </component>

@@ -8,6 +8,6 @@ data class MemoryCard(
     var isMatched: Boolean = false
 ) {
     fun isMatch(card: MemoryCard): Boolean {
-        return card.id == this.id;
+        return card.id == this.id
     }
 }
