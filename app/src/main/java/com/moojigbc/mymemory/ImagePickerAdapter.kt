@@ -9,11 +9,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.moojigbc.mymemory.model.BoardSize
+import com.moojigbc.mymemory.model.SelectedImage
 import kotlin.math.min
 
 class ImagePickerAdapter(
     private val context: Context,
-    private val imageUris: MutableList<Uri>,
+    private val selectedImageUris: MutableList<SelectedImage>,
     private val boardSize: BoardSize,
     private val imageClickListener: ImageClickListener
 ) : RecyclerView.Adapter<ImagePickerAdapter.ViewHolder>() {
@@ -24,7 +25,7 @@ class ImagePickerAdapter(
 
     interface ImageClickListener {
         fun onPlaceHolderClick()
-        fun onExistingImageClick(current: Uri, previous: Uri?)
+        fun onExistingImageClick(current: SelectedImage, previous: SelectedImage?)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,8 +44,8 @@ class ImagePickerAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.i(TAG, "onBindViewHolder position=$position")
-        if (position < imageUris.size) {
-            holder.bind(imageUris[position])
+        if (position < selectedImageUris.size) {
+            holder.bind(selectedImageUris[position])
         } else {
             holder.bind()
         }
@@ -53,15 +54,15 @@ class ImagePickerAdapter(
     override fun getItemCount() = boardSize.getPairCount()
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var uri: Uri? = null
+        var selectedImage: SelectedImage? = null;
         private val ivCustomImage = itemView.findViewById<ImageView>(R.id.ivCustomImage)
 
-        fun bind(uri: Uri) {
-            ivCustomImage.setImageURI(uri)
+        fun bind(selectedImage: SelectedImage) {
+            ivCustomImage.setImageURI(selectedImage.uri)
             ivCustomImage.setOnClickListener {
-                imageClickListener.onExistingImageClick(uri, this.uri)
+                imageClickListener.onExistingImageClick(selectedImage, this.selectedImage)
             }
-            this.uri = uri;
+            this.selectedImage = selectedImage;
         }
         fun bind() {
             ivCustomImage.setOnClickListener {
